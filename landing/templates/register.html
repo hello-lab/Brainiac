@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Join Brainiac{% endblock %}
+{% block content %}
+            <section class="py-5 space-y-12">
+                <div class="container sm:max-w-[60vw] px-5 space-y-12">
+                    <!-- Contact form-->
+                    <div class="bg-black rounded-4 text-center py-5 mt-2 px-4 px-md-5">
+                        <div class="text-center mb-5">
+                            <h1 class="text-4xl mb-24">Register for <span class="text-purple-400 ">Brainiac</span></h1>
+
+                        </div>
+                        <div class="row gx-5 justify-content-center">
+                            <div class="col-lg-8 col-xl-6">
+                                <form method="POST" id="contactForm">
+                                    {% csrf_token %}
+                                    {% for field in form %}
+                                    <div class=" form-floating mb-3">
+                                            <!-- <label class="mylabel">{{ field.label }}</label> -->
+                                            {{ field }}
+                                        <label for="{{field.label}}">{{ field.label }}</label>
+                                        </div>
+                                    {% endfor %}
+                                    <div class="d-grid">
+                                        <button class="btn mt-6 text-white bg-gradient-to-r font-arial font-bold from-indigo-400 to-purple-600  opacity-65 btn-lg" id="submitButton" value="submit" type="submit">Submit</button>
+                                    </div> 
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'dash/base.html' %}
+{% load static %}
+{% block title %}Pomodoro Timer{% endblock %}
+{% block id %}{{ userid }}{% endblock %}
+{% block content %}
+<div class="flex justify-center items-center h-screen bg-black">
+    <div class=" w-full bg-black shadow-lg rounded-lg">
+        <h1 class="text-7xl font-bold text-center text-purple-400 mb-6">Pomodoro Timer</h1>
+        <div id="timer" class="text-6xl font-semibold text-purple-600 text-center mb-6">25:00</div>
+        <div class="flex justify-center space-x-4 mb-6">
+            <button id="startButton" class="btn-blue">Start</button>
+            <button id="resetButton" class="btn-red">Reset</button>
+        </div>
+        <div class="flex justify-center space-x-4">
+            <button id="addHour" class="btn-gray">+1 Hour</button>
+            <button id="subtractHour" class="btn-gray">-1 Hour</button>
+            <button id="addMinute" class="btn-gray">+1 Minute</button>
+            <button id="subtractMinute" class="btn-gray">-1 Minute</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let interval;
+    let totalSeconds = 60 * 25; // Initial work duration in seconds
+    let isBreakTime = false; // Flag to track if it's break time
+    let timerRunning = false;
+
+    function startTimer() {
+        let duration = isBreakTime ? 60 * 5 : totalSeconds; // 5 minutes break, 25 minutes work
+        let display = document.getElementById('timer');
+
+        let timer = duration;
+        interval = setInterval(function () {
+            let hours = parseInt(timer / 3600, 10);
+            let minutes = parseInt((timer % 3600) / 60, 10);
+            let seconds = parseInt(timer % 60, 10);
+            totalSeconds -= 1;
+            hours = hours < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = hours + ":" + minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                clearInterval(interval);
+                if (!isBreakTime) {
+                    // Transition from work to break
+                    isBreakTime = true;
+                    startTimer();
+                } else {
+                    // Transition from break to work
+                    isBreakTime = false;
+                    totalSeconds = 60 * 25; // Reset work time
+                    updateTimerDisplay(display);
+                    document.getElementById('startButton').textContent = 'Start Work';
+                    timerRunning = false;
+                }
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay(display) {
+        let hours = parseInt(totalSeconds / 3600, 10);
+        let minutes = parseInt((totalSeconds % 3600) / 60, 10);
+        let seconds = parseInt(totalSeconds % 60, 10);
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = hours + ":" + minutes + ":" + seconds;
+    }
+
+    document.getElementById('startButton').addEventListener('click', function () {
+        if (!timerRunning) {
+            startTimer();
+            document.getElementById('startButton').textContent = 'Pause';
+            timerRunning = true;
+        } else {
+            clearInterval(interval);
+            document.getElementById('startButton').textContent = 'Start Work';
+            timerRunning = false;
+        }
+    });
+
+    document.getElementById('resetButton').addEventListener('click', function () {
+        clearInterval(interval);
+        isBreakTime = false;
+        totalSeconds = 60 * 25; // Reset work time
+        updateTimerDisplay(document.getElementById('timer'));
+        document.getElementById('startButton').textContent = 'Start Work';
+        timerRunning = false;
+    });
+
+    document.getElementById('addHour').addEventListener('click', function () {
+        totalSeconds += 3600;
+        updateTimerDisplay(document.getElementById('timer'));
+    });
+
+    document.getElementById('subtractHour').addEventListener('click', function () {
+        if (totalSeconds >= 3600) {
+            totalSeconds -= 3600;
+            updateTimerDisplay(document.getElementById('timer'));
+        }
+    });
+
+    document.getElementById('addMinute').addEventListener('click', function () {
+        totalSeconds += 60;
+        updateTimerDisplay(document.getElementById('timer'));
+    });
+
+    document.getElementById('subtractMinute').addEventListener('click', function () {
+        if (totalSeconds >= 60) {
+            totalSeconds -= 60;
+            updateTimerDisplay(document.getElementById('timer'));
+        }
+    });
+
+    updateTimerDisplay(document.getElementById('timer'));
+</script>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'dash/base.html' %}
+{% load static %}
+{% block title %}Brainiac{% endblock %}
+{% block content %}
+<h1 class="text-4xl font-bold mb-6">{{ quiz.title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

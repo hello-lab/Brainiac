@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Brainiac{% endblock %}
+{% block content %}
+            <header class="py-5">
+                <div class="container backdrop-blur-sm  px-5 pb-5">
+                    <div class="row gx-5 align-items-center">
+                        <div class="col-xxl-5">
+                            <!-- Header text content-->
+                            <div class="text-center text-xxl-start">
+                                <div class="fs-3 fw-dark text-gray-400">A one-stop solution to</div>
+                                <h1 class="display-3 fw-bolder mb-5"><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-700 d-inline">Learn. Grow. Succeed.</span></h1>
+                                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
+                                    <a class="btn bg-purple-700 btn-lg px-5 hover:text-white hover:bg-purple-700  text-black font-extrabold py-3 fs-6 fw-bolder" href="/register">Get Started</a>
+                                    <a class="btn btn-outline-light hover:text-purple-400 btn-lg px-5 py-3 fs-6 fw-bolder" href="/login">Log In</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-7">
+                            <!-- Header profile picture-->
+                            <div class="d-flex justify-content-center mt-5 mt-xxl-0">
+                                <div class="profile bg-gradient-to-r from-indigo-500 to-purple-700">    
+                                    <!-- TIP: For best results, use a photo with a transparent background like the demo example below-->
+                                    <!-- Watch a tutorial on how to do this on YouTube (link)-->
+                                    <img class="profile-img" src="{% static 'landing/assets/hero.png' %}" alt="..." />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- About Section-->
+            <section class="bg-black py-5">
+                <div class="container px-5">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-xxl-8">
+                            <div class="text-center my-5">
+                                <h2 class="display-5 mb-1 fw-bolder"><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-700 d-inline">About Brainiac</span></h2>
+                                <p class="lead fw-dark mb-4">Unleash your true potential by availing the best of learning</p>
+                                <p class="text-gray-100">Brainiac is an innovative educational platform offering expertly curated courses and personalized learning paths for learners of all ages. Designed for school and college students, as well as individuals seeking to enhance specific skills, Brainiac provides a comprehensive and engaging learning experience. Features include interactive content such as videos, quizzes, and simulations, live classes, adaptive learning algorithms, and community support through discussion forums and study groups. Brainiac also offers progress tracking, accredited certifications, and career services, making it a one-stop solution for effective and enjoyable learning.</p>
+                                <div class="d-flex justify-content-center fs-2 mt-12 gap-4">
+                                    <a class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-700" href="#!"><i class="bi bi-twitter"></i></a>
+                                    <a class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-700" href="#!"><i class="bi bi-linkedin"></i></a>
+                                    <a class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-700" href="#!"><i class="bi bi-github"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}
